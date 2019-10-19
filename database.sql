@@ -16,11 +16,7 @@ create table consts
   id bigint identity(1, 1) not null,
   identifier varchar(30) not null,
   visible_name nvarchar(250) not null,
-  value_string varchar(255) null,
-  value_int bigint null,
-  value_float float null,
-  value_datetime datetime null,
-  value_bool bit null
+  value sql_variant null
 )
 
 alter table consts add constraint pk_consts primary key(id)
@@ -36,7 +32,7 @@ as
 begin
   declare @result varchar(255)
 
-  select @result = value_string
+  select @result = cast(value as varchar(255))
   from dbo.consts
   where identifier = @identifier
 
@@ -53,7 +49,7 @@ as
 begin
   declare @result int
 
-  select @result = value_int
+  select @result = cast(value as int)
   from dbo.consts
   where identifier = @identifier
 
@@ -70,7 +66,7 @@ as
 begin
   declare @result float
 
-  select @result = value_float
+  select @result = cast(value as float)
   from dbo.consts
   where identifier = @identifier
 
@@ -87,7 +83,7 @@ as
 begin
   declare @result datetime
 
-  select @result = value_datetime
+  select @result = cast(value as datetime)
   from dbo.consts
   where identifier = @identifier
 
@@ -104,7 +100,7 @@ as
 begin
   declare @result bit
 
-  select @result = value_bool
+  select @result = cast(value as bit)
   from dbo.consts
   where identifier = @identifier
 
